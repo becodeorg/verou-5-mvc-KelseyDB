@@ -15,10 +15,11 @@ require 'Model/Article.php';
 require 'Controller/HomepageController.php';
 require 'Controller/ArticleController.php';
 
-
 //database connection
 $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
 $databaseManager->connect();
+
+
 
 // Get the current page to load
 // If nothing is specified, it will remain empty (home should be loaded)
@@ -27,17 +28,21 @@ $page = $_GET['page'] ?? null;
 // Load the controller
 // It will *control* the rest of the work to load the page
 switch ($page) {
-    case 'articles-index':
-        // This is shorthand for:
-        // $articleController = new ArticleController;
-        // $articleController->index();
-        (new ArticleController())->index();
+  case 'articles-index':
+    // This is shorthand for:
+    // $articleController = new ArticleController;
+    // $articleController->index();
+    (new ArticleController($databaseManager))->index();
 
-        break;
-    case 'articles-show':
-        // TODO: detail page
-    case 'home':
-    default:
-        (new HomepageController())->index();
-        break;
+    break;
+  case 'articles-show':
+    (new ArticleController($databaseManager))->showArticle();
+    break;
+  case 'home':
+  default:
+
+    $articleController = new ArticleController($databaseManager);
+    $articleController->index();
+      
+  break;
 }
