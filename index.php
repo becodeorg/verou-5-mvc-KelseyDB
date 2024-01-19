@@ -36,13 +36,13 @@ switch ($page) {
 
     break;
   case 'articles-show':
-    (new ArticleController($databaseManager))->showArticle();
+    (new ArticleController($databaseManager))->show();
+    require 'view/articles/show.php';
     break;
   case 'home':
   default:
 
-    $articleController = new ArticleController($databaseManager);
-    $articleController->index();
-      
+    (new ArticleController($databaseManager))->index();
+
   break;
 }

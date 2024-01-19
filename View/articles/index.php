@@ -7,7 +7,7 @@
   <ul>
     <?php foreach ($articles as $article) : ?>
         <li><?= $article->title ?> - (<?= $article->formatPublishDate() ?>)</li>
-        
+        <a href="index.php?page=articles-show&id=<?= $article->id ?>">More info</a>
     <?php endforeach; ?>
   </ul>
 </section>

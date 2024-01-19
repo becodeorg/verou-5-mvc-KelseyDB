@@ -51,7 +51,19 @@ class ArticleController
 
   public function show()
   {
+    try {
+      $id = $_GET['id'];
+      $query = "SELECT * FROM articles WHERE id = $id";
+      $statement = $this->databaseManager->connection->query($query);
+      $rawArticle = $statement->fetchAll();
+      $article = new Article($rawArticle[0]['id'], $rawArticle[0]['title'], $rawArticle[0]['description'], $rawArticle[0]['publish_date']);
+      print_r($article);
+      return $article;
+
+    }catch (PDOException $e) {
+      echo "Query Failed: " . $e->getMessage();
+    }
+    require 'View/articles/show.php';
    // TODO: this can be used for a detail page
   }
-  
 }
