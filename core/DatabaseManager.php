@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config.php';
+require_once 'root/config.php';
 
 class DatabaseManager 
 {
